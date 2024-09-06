@@ -287,3 +287,4 @@ C:\Users\mchla\OneDrive\Documentos\Proyectos\MVCDemo\obj\Release\net8.0\refint\M
 C:\Users\mchla\OneDrive\Documentos\Proyectos\MVCDemo\obj\Release\net8.0\MVCDemo.pdb
 C:\Users\mchla\OneDrive\Documentos\Proyectos\MVCDemo\obj\Release\net8.0\MVCDemo.genruntimeconfig.cache
 C:\Users\mchla\OneDrive\Documentos\Proyectos\MVCDemo\obj\Release\net8.0\ref\MVCDemo.dll
+C:\Users\mchla\OneDrive\Documentos\Proyectos\MVCDemo\obj\Release\net8.0\MVCDemo.sourcelink.json

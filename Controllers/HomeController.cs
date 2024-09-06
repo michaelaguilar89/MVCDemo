@@ -28,5 +28,11 @@ namespace MVCDemo.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [Route("Home/NotFound")]
+        public IActionResult NotFound(int statusCode)
+        {
+            return View(); // Carga la vista NotFound.cshtml
+        }
     }
 }

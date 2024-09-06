@@ -287,3 +287,4 @@ C:\Users\mchla\OneDrive\Documentos\Proyectos\MVCDemo\bin\Debug\net8.0\runtimes\w
 C:\Users\mchla\OneDrive\Documentos\Proyectos\MVCDemo\bin\Debug\net8.0\runtimes\win-arm64\native\e_sqlite3.dll
 C:\Users\mchla\OneDrive\Documentos\Proyectos\MVCDemo\bin\Debug\net8.0\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\mchla\OneDrive\Documentos\Proyectos\MVCDemo\bin\Debug\net8.0\runtimes\win-x86\native\e_sqlite3.dll
+C:\Users\mchla\OneDrive\Documentos\Proyectos\MVCDemo\obj\Debug\net8.0\MVCDemo.sourcelink.json

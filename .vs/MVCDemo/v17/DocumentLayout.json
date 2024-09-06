@@ -1,12 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\mchla\\OneDrive\\Documentos\\Proyectos\\MVCDemo\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{CB6DEE36-1AA8-41E1-B5A4-52546D806D29}|MVCDemo.csproj|c:\\users\\mchla\\onedrive\\documentos\\proyectos\\mvcdemo\\mvcdemo.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{CB6DEE36-1AA8-41E1-B5A4-52546D806D29}|MVCDemo.csproj|solutionrelative:mvcdemo.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -14,21 +9,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": -1,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "MVCDemo",
-              "DocumentMoniker": "C:\\Users\\mchla\\OneDrive\\Documentos\\Proyectos\\MVCDemo\\MVCDemo.csproj",
-              "RelativeDocumentMoniker": "MVCDemo.csproj",
-              "ToolTip": "C:\\Users\\mchla\\OneDrive\\Documentos\\Proyectos\\MVCDemo\\MVCDemo.csproj*",
-              "RelativeToolTip": "MVCDemo.csproj*",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAARAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-09-06T03:18:56.457Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{e506b91c-c606-466a-90a9-123d1d1e12b3}"

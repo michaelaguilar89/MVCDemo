@@ -21,13 +21,10 @@ if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
 }
-else
-{
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
 
+app.UseExceptionHandler("/Home/Error"); // Maneja excepciones generales
+app.UseStatusCodePagesWithReExecute("/Home/NotFound", "?statusCode={0}"); // Para errores de estado HTTP (como 404)
+app.UseHsts();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
