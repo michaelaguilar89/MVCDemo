@@ -1,0 +1,44 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model MVCDemo.Dto_s.CategorieDto
+@{
+ 
+}
+
+<div class="row">
+    <div class="col-md-6 mx-auto p-5">
+        @if (Model.Id>0)
+        {
+            <h3 class="text-center text-primary">Edit Categorie</h3>
+        }
+        else
+        {
+            <h3 class="text-center text-primary">Create Categorie</h3>
+        }
+
+        <hr />
+       
+        <form asp-action="AddEdit">
+        
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Campo Id, oculto si no necesitas editar -->
+            <input asp-for="Id" type="hidden"  />
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+          
+           
+            <div class="form-group text-center pt-3">
+                <!-- Si necesitas que el botón regrese, puedes usar un enlace -->
+                <a href="@Url.Action("Index", "Categorie")" class="btn btn-success">Go Back</a>
+                <button type="submit" class="btn btn-primary mx-5">Save</button>
+            </div>
+        </form>
+    </div>
+</div>

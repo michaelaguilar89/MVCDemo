@@ -1,0 +1,71 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="row">
+    <div class="col-lg-10 mx-auto">
+        <h3 class="text-primary text-center"> List Of Products</h3>
+        <hr />
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                @TempData["ErrorMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Categorie</th>
+                    <th scope="col">User</th>
+                    <th scope="col">Options</th>
+                    <th scope="col">
+                        <a class="btn btn-outline-primary" asp-action="AddEdit">Create</a>
+                    </th>
+                </tr>
+            </thead>
+            @if(Model!=null){
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th scope="row">@item.Name</th>
+                            <td>@item.Quantity</td>
+                            <td>@item.Price $</td>
+                            <td>@item.CreationAt</td>
+                            <th>@item.CategorieName</th>
+                            <td>@item.UserName</td>
+                            <td>
+                                <a class="text-success" asp-action="AddEdit" asp-route-id="@item.Id"><i class="fa fa-marker fa-lg"></i></a>
+
+                                <a class="text-danger" asp-action="Delete" asp-route-id="@item.Id"
+                                   onclick="return confirm('Are you sure dou you want delete this record?')"><i class="fa fa-trash-alt fa-lg"></i></a>
+                            </td>
+
+                        </tr>
+                    }
+
+
+                </tbody>
+            }else{
+                <h3 class="text-danger text-center">Data Not Found!</h3>
+            }
+        </table>
+    </div>
+</div>

@@ -1,0 +1,70 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model List<Categorie> 
+@{
+}
+<div class="row">
+    <div class="col-md-6 mx-auto 0">
+        <h3 class="text-center text-success">List Of Categories  </h3>
+        <hr />
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                @TempData["ErrorMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        @if (Model!=null)
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Creation Date</th>
+                        
+                        <th scope="col">User</th>
+                        <th scope="col">Options</th>
+                        <th scope="col">
+                            <a class="btn btn-outline-primary" asp-action="AddEdit">Create</a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th scope="row">@item.Name</th>
+                            <td>@item.CreationAt</td>
+                            <td>@item.UserId</td>
+                            <td>
+                                <a class="text-success" asp-action="AddEdit" asp-route-id="@item.Id"><i class="fa fa-marker fa-lg"></i></a> 
+                                
+                                <a class="text-danger" asp-action="Delete" asp-route-id="@item.Id"
+                                onclick="return confirm('Are you sure dou you want delete this record?')"><i class="fa fa-trash-alt fa-lg"></i></a>
+                            </td>
+                        </tr>
+
+                    }
+
+
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <h3 class="text-info">Data not found</h3>
+        }
+
+    </div>
+</div>
