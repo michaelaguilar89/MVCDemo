@@ -42,7 +42,7 @@ namespace MVCDemo.Controllers
                     list = await _context.Products
                    .Include(s => s.User)
                    .Include(z => z.Categorie)
-                   .Where(x => x.Name.Contains(searchString))
+                   .Where(x => x.Name.ToLower().Contains(searchString.ToLower()))
                    .Select(c => new ProductResultDto
                    {
                        Id = c.Id,

@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\Users\T470\Documents\Projects\MVCDemo\bin\Release\net8.0\publish\</_PublishTargetUrl>
-    <History>True|2024-09-07T23:13:29.2783147Z||;True|2024-09-05T22:12:12.8131238-06:00||;True|2024-09-05T21:21:18.0645214-06:00||;</History>
+    <History>True|2024-09-07T23:39:33.5365120Z||;True|2024-09-07T17:13:29.2783147-06:00||;True|2024-09-05T22:12:12.8131238-06:00||;True|2024-09-05T21:21:18.0645214-06:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
 </Project>
