@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MVCDemo.Data;
 using MVCDemo.Dto_s;
@@ -9,6 +10,7 @@ using System.Security.Claims;
 
 namespace MVCDemo.Controllers
 {
+    [Authorize]
     public class CategorieController : Controller
     {
         private readonly ApplicationDbContext _context;

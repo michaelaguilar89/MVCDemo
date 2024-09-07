@@ -1,14 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MVCDemo.Data;
 using MVCDemo.Dto_s;
 using MVCDemo.Models;
 using System.Diagnostics;
 using System.Security.Claims;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace MVCDemo.Controllers
 {
-   
+
+    [Authorize]
     public class ProductController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -16,33 +20,72 @@ namespace MVCDemo.Controllers
         {
             _context = context;
         }
-
-        public async Task<IActionResult> Index()
+        
+        [Authorize]
+        public async Task<IActionResult> Index(string? searchString,
+            int count, int? pageIndex, int? pageSize)
         {
             try
             {
-                var list = await _context.Products
-                    .Include(s=>s.User)
-                    .Include(z=>z.Categorie)
-                    .Select(c=>new ProductResultDto
-                    {
-                        Id=c.Id,
-                        Name=c.Name,
-                        Quantity=c.Quantity,
-                        Price=c.Price,
-                        CreationAt=c.CreationAt,
-                        CategorieId=c.CategorieId,
-                        CategorieName=c.Categorie.Name,
-                        UserId=c.User.Id,
-                        UserName=c.User.UserName
-                    })
-                    .ToListAsync();
-                foreach (var item in list)
+                List<ProductResultDto> list = new();
+
+
+
+                // Configurar valores por defecto para el número de página y tamaño de página
+                int currentPageIndex = pageIndex ?? 1;
+                int currentPageSize = pageSize ?? 10;
+                ViewData["CurrentPageIndex"] = currentPageIndex;
+                ViewData["CurrentPageSize"] = currentPageSize;
+
+                if (!String.IsNullOrEmpty(searchString))
                 {
-                    Console.WriteLine("data : " + item.Id + " |" + item.Name + " | "
-                        + item.Quantity + " | " + item.Price + " | " + item.CreationAt 
-                        + " | " + item.CategorieId + " | " + item.UserId);
+                    list = await _context.Products
+                   .Include(s => s.User)
+                   .Include(z => z.Categorie)
+                   .Where(x => x.Name.Contains(searchString))
+                   .Select(c => new ProductResultDto
+                   {
+                       Id = c.Id,
+                       Name = c.Name,
+                       Quantity = c.Quantity,
+                       Price = c.Price,
+                       CreationAt = c.CreationAt,
+                       CategorieId = c.CategorieId,
+                       CategorieName = c.Categorie.Name,
+                       UserId = c.User.Id,
+                       UserName = c.User.UserName
+                   })
+                   .OrderBy(x=>x.CreationAt)
+                   .ToListAsync();
                 }
+                else
+                {
+                    list = await _context.Products
+                   .Include(s => s.User)
+                   .Include(z => z.Categorie)
+                   .Select(c => new ProductResultDto
+                   {
+                       Id = c.Id,
+                       Name = c.Name,
+                       Quantity = c.Quantity,
+                       Price = c.Price,
+                       CreationAt = c.CreationAt,
+                       CategorieId = c.CategorieId,
+                       CategorieName = c.Categorie.Name,
+                       UserId = c.User.Id,
+                       UserName = c.User.UserName
+                   })
+                   .Skip((currentPageIndex - 1) * currentPageSize)
+                   .Take(currentPageSize)
+                   .ToListAsync();
+
+
+                }
+                // Obtener el número total de productos filtrados
+                int totalRecords = list.Count();
+                ViewData["TotalRecords"] = totalRecords;
+
+
                 return View(list);
             }
             catch (Exception e)
@@ -52,6 +95,7 @@ namespace MVCDemo.Controllers
             }
           
         }
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> AddEdit(int? id)
         {
@@ -98,16 +142,14 @@ namespace MVCDemo.Controllers
                 return View("Error", new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
             }
         }
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddEdit(ProductDto product)
         {
             try
             {
-                /*  foreach(var i in product.Categories)
-                   {
-                       Console.WriteLine("Id : " + i.Id + ", Name : " + i.Name);
-                   }*/
+                
                 Console.WriteLine("Id : " + product.Id);
                 Console.WriteLine("Name : " + product.Name);
                 Console.WriteLine("Quantity : " + product.Quantity);
@@ -117,6 +159,13 @@ namespace MVCDemo.Controllers
                 if (!ModelState.IsValid)
                 {
                     TempData["ErrorMessage"] = "Model is Invalid";
+                    var categories = await _context.Categories
+                 .Select(i => new CategorieDto()
+                 {
+                     Id = i.Id,
+                     Name = i.Name
+                 }).ToListAsync();
+                    product.Categories= categories;
                     return View(product);
 
                 }
@@ -133,12 +182,12 @@ namespace MVCDemo.Controllers
                 if (product.Id > 0)
                 {
                     _context.Update(model);
-                    TempData["SuccessMessage"] = "Category has been update successfully.";
+                    TempData["SuccessMessage"] = "Product has been update successfully.";
                 }
                 else
                 {
                     await _context.AddAsync(model);
-                    TempData["SuccessMessage"] = "Category has been created successfully.";
+                    TempData["SuccessMessage"] = "Product has been created successfully.";
 
                 }
                 await _context.SaveChangesAsync();
@@ -153,6 +202,7 @@ namespace MVCDemo.Controllers
             }
         }
 
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             try

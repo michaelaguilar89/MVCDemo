@@ -2,11 +2,12 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+   
 }
 
 <div class="row">
     <div class="col-lg-10 mx-auto">
-        <h3 class="text-primary text-center"> List Of Products</h3>
+        <h3 class="text-primary text-center"> List Of Products ( @( (int)ViewData["TotalRecords"] ) ) </h3>
         <hr />
 
         @if (TempData["SuccessMessage"] != null)
@@ -24,7 +25,15 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         }
-
+        <form asp-action="Index" method="get">
+            <div class="form-actions text-center">
+                <p>
+                    <input type="text" name="searchString" placeholder="Type to Search...." value="@ViewData["CurrentFilter"]"/>
+                    <input type="submit" value="Search" class="btn btn-primary" /> | 
+                    <a asp-action="Index">Back to Full list</a>
+                </p>
+            </div>
+        </form>
         <table class="table">
             <thead>
                 <tr>
@@ -67,5 +76,26 @@
                 <h3 class="text-danger text-center">Data Not Found!</h3>
             }
         </table>
+
+        
+        <div class="text-center">
+            <!--Pagination form-->
+			<form asp-action="Index" method="get">
+                @* Botón "Previous" *@
+                <button type="submit" name="pageIndex" value="@((int)ViewData["CurrentPageIndex"] - 1)"
+                        class="btn btn-primary mx-5" @((int)ViewData["CurrentPageIndex"] <= 1 ? "disabled" : "")>
+                    Previous
+                </button>
+
+                @* Botón "Next" *@
+                <button type="submit" name="pageIndex" value="@((int)ViewData["CurrentPageIndex"] + 1)"
+                        class="btn btn-primary mx-5" @((int)ViewData["TotalRecords"] < (int)ViewData["CurrentPageSize"] ? "disabled" : "")>
+                    Next
+                </button>
+			</form>
+        
+
+          
+        </div>
     </div>
 </div>
